@@ -6,8 +6,15 @@ const {
   resetPassword
 } = require("../controllers/authController");
 
-router.post("/forgot-password", forgotPassword);
+const {
+  forgotPasswordRules,
+  resetPasswordRules,
+  validate
+} = require("../middleware/validators");
 
-router.post("/reset-password", resetPassword);
+// Sanitize & Validate → then Controller
+router.post("/forgot-password", forgotPasswordRules, validate, forgotPassword);
+
+router.post("/reset-password", resetPasswordRules, validate, resetPassword);
 
 module.exports = router;
